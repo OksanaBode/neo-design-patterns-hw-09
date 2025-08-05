@@ -26,13 +26,9 @@ export abstract class DataExporter {
       .sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  protected beforeRender() {
-    // hook
-  }
+  protected beforeRender() {}
 
-  protected afterRender() {
-    // hook
-  }
+  protected afterRender() {}
 
   protected abstract render(): string;
   protected abstract save(): void;

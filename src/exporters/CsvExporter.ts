@@ -12,7 +12,7 @@ export class CsvExporter extends DataExporter {
   }
 
   protected save(): void {
-    const filePath = "./exports/users.csv";
+    const filePath = "./dist/users.csv";
     const dir = dirname(filePath);
 
     if (!existsSync(dir)) {

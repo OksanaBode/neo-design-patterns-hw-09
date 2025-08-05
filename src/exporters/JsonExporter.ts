@@ -8,7 +8,7 @@ export class JsonExporter extends DataExporter {
   }
 
   protected save(): void {
-     const filePath = './exports/users.json';
+     const filePath = './dist/users.json';
     const dir = dirname(filePath);
 
     if (!existsSync(dir)) {

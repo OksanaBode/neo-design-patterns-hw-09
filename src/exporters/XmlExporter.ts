@@ -4,30 +4,25 @@ import { dirname } from "path";
 
 export class XmlExporter extends DataExporter {
   protected render(): string {
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<users>\n';
-
-    for (const user of this.data) {
-      xml += "  <user>\n";
-      for (const key in user) {
-        xml += `    <${key}>${user[key as keyof typeof user]}</${key}>\n`;
-      }
-      xml += "  </user>\n";
-    }
-
-    xml += "</users>\n";
-
-    const timestamp = new Date().toISOString();
-    xml += `<!-- Експорт згенеровано: ${timestamp} -->\n`;
-
-    return xml;
+    const items = this.data.map(
+        (user) =>
+          `  <user>
+    <id>${user.id}</id>
+    <name>${user.name}</name>
+    <email>${user.email}</email>
+    <phone>${user.phone}</phone>
+  </user>`
+      )
+      .join("\n");
+    return `<users>\n${items}\n</users>`;
   }
 
   protected afterRender(): void {
-    console.log("XML export finished. Total users:", this.data.length);
+    this.result += `\n<!-- Експорт згенеровано: ${new Date().toISOString()} -->`;
   }
 
   protected save(): void {
-    const filePath = "./exports/users.xml";
+    const filePath = "./dist/users.xml";
     const dir = dirname(filePath);
 
     if (!existsSync(dir)) {
